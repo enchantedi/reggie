@@ -5,3 +5,4 @@
 
 mysql2Oracle 40%
 mysql2Oracle 60%
+mysql2Oracle 100%
