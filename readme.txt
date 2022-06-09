@@ -4,3 +4,4 @@
 这是修改 之前初始化打错了
 
 mysql2Oracle 40%
+mysql2Oracle 60%
