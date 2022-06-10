@@ -52,7 +52,6 @@ public class SetmealServiceImpl implements SetmealService {
                 //根据CategoryId去查找CategoryName并赋给setmeal表中字段
                 Category category = categoryMapper.selectById(pageRecord.getCategoryId());
                 pageRecord.setCategoryName(category.getName());
-                //todo
                 //当前套餐对应菜品信息
                 LambdaQueryWrapper<SetmealDish> wrapper1 = new LambdaQueryWrapper<>();
                 wrapper1.eq(SetmealDish::getSetmealId, pageRecord.getId());

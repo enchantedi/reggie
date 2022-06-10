@@ -187,10 +187,17 @@ public class DishServiceImpl implements DishService {
     public List<Dish> findDish(Long categoryId,String name) {
         LambdaQueryWrapper<Dish> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Dish::getCategoryId, categoryId)
-                //todo  and还是or
-                .or().like(StringUtils.isNotEmpty(name),Dish::getName,name);
+                .like(StringUtils.isNotEmpty(name),Dish::getName,name);
         //只显示在售
         wrapper. eq(Dish::getStatus, STATUS_ENABLE_SOLD);
-        return dishMapper.selectList(wrapper);
+        List<Dish> dishList = dishMapper.selectList(wrapper);
+        for (Dish dish : dishList) {
+            //得到每个菜品, 根据菜品的id从口味表找到当前菜品的口味列表
+            LambdaQueryWrapper<DishFlavor> wrapper1 = new LambdaQueryWrapper<>();
+            wrapper1.eq(DishFlavor::getDishId, dish.getId());
+            List<DishFlavor> dishFlavorList = dishFlavorMapper.selectList(wrapper1);
+            dish.setFlavors(dishFlavorList);
+        }
+        return dishList;
     }
 }

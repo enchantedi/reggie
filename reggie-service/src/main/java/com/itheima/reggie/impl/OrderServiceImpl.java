@@ -131,9 +131,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<Order> findByPage(Integer pageNum, Integer pageSize, String number, String beginTime, String endTime) {
         LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
-        //todo
-        wrapper.eq(number != null,Order::getId,number);
-        //todo 下单时间 结账时间
+
         if (StringUtils.isNotEmpty(number)) {
             wrapper.eq(StringUtils.isNotEmpty(number), Order::getNumber, number).between(Order::getOrderTime, beginTime, endTime);
             return orderMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
